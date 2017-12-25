@@ -1,0 +1,16 @@
+[
+  {
+      "cname" : "hello",
+      "alias": ["hello","你好","hello_world", "shit"],
+      "invoking_program" : ["python3", "./programmes/hello/hello.py"],
+      "version" : "1.0.0",
+      "description": "Does nothing but say hello."
+  },
+  {
+      "cname" : "whoami",
+      "alias": ["我是谁"],
+      "invoking_program" : ["sh", "./programmes/whoami/main.sh"],
+      "version" : "1.0.0",
+      "description": "Does nothing but tells you who you are"
+  }
+]

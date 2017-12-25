@@ -1,4 +1,0 @@
-#!/usr/bin/python3
-import sys
-#if sys.argv[1]:
-print("你好!", sys.argv[0])
