@@ -12,5 +12,13 @@
       "invoking_program" : ["sh", "./programmes/whoami/main.sh"],
       "version" : "1.0.0",
       "description": "Does nothing but tells you who you are"
+  },
+  {
+      "cname" : "turn_on_light",
+      "alias": ["开灯", "灯","light"],
+      "invoking_program" : ["python3", "./programmes/turn_on_light/main.py"],
+      "version": "0.1.0",
+      "description" : "控制灯的亮灭"
+
   }
 ]
