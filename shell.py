@@ -6,11 +6,12 @@ from threading import Thread
 import json
 
 class Shell:
-    # TODO: concurrence and buffer? use
+    # TODO: concurrence of buffer objects? What to use?
     input_buffer = multiprocessing.Queue()
-    # the buffer where all wechat mesages came
+    # the buffer where all WeChat messages comes from.
+    # only UNPROCESSED STRINGS accepted here!
     output_buffer = multiprocessing.Queue()
-    # the buffer where all wehat replies goes
+    # the buffer where all WeChat replies goes
     command_buffer = multiprocessing.Queue()
     # the buffer where all the commands that is waiting to be processed
 
@@ -25,10 +26,10 @@ class Shell:
 
     def __init__(self):
         print("Hello! Shell instance init!")
-        self.output_buffer.put("Hello! Shell instance init!")
+        self.output_buffer.put("你好！Shell开始运行了！")
         fp = open("programs.json")
-        self.programmes = json.JSONDecoder().decode(fp.read())
-        print("this is the programmes!", fp)
+        self.programs = json.JSONDecoder().decode(fp.read())
+
 
     def parse_command(self):
         while self.is_parsing_command:
@@ -48,15 +49,17 @@ class Shell:
             true_command = list()
             for indivi_command in command[:]:
                 self.command_buffer.put(indivi_command.split())
+            time.sleep(0.3)
 
     def io_daemon(self,popen_obj):
         def output_daemon(self, popen_obj):
             while True:
                 line = popen_obj.stdout.readline()
                 line = line.decode('utf-8')
+                print("now line is", line)
                 print("from output_daemon: What we get is", line)
                 if line != "":
-                    self.output_buffer.put(str(line))
+                    self.output_buffer.put(line)# how about this?
                     continue
                 popen_obj.poll()
                 print("from output_daemon: The process code is: " + str(popen_obj.returncode) )
@@ -81,10 +84,12 @@ class Shell:
                 else:
                     break
         '''
+
         #ind =Thread(input_daemon(self, popen_obj), daemon=True)
         oud =Thread(output_daemon(self, popen_obj), daemon=True)
         oud.start() #都开始了，怎么还是阻塞的啊！TODO:加入输入的功能！
-        oud.join()
+        #TODO:为什么Python有bug，然而其他的是好的？
+        #oud.join() # why do i need to join it?
         #ind.start()
 
 
@@ -100,17 +105,17 @@ class Shell:
 
             if self.current_process == None:
                 command_is_good = False
-                for program in self.programmes:
+                for program in self.programs:
                         if out[0] in program["alias"]:
-                            out = program["invoking_program"] + out[1:]
+                            out = program["invoking_program"] + out[:]
                             print(out)
                             command_is_good = True
                             break
                 if not command_is_good:
-                    out = ["python3", "./programmes/ai/main.py"] + out[1:]
+                    out = ["python3", "./programs/ai/main.py"] + out[:]
                 try:
-                    self.current_process = subprocess.Popen(out, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                    # ask the program to NOT use stderr! or use stderr for loging purpose!
+                    self.current_process = subprocess.Popen(out, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+                    # ask the program to NOT use stderr! Use stderr for server LOCAL logging purpose!
                     print("from excecute_command: Subprocess opened!")
                     print("from excecute_command: current io daemon started!")
                     self.io_daemon(self.current_process)
@@ -124,17 +129,12 @@ class Shell:
             else:
                 print("from excecute_command: A process is already there! The command will be sent to the exsiting process")
                 continue
-                # send to current_daemon
 
-#self.current_daemon = Thread(target = self.process_daemon(self.current_process))
-#self.current_daemon.run()
-#print("from excecute_command: daemon_started!")
 
     def start(self):
-        # Wait until WeChat is ready!
         parser = Thread(target=self.parse_command, daemon=True)
         parser.start()
         print("Parser started!")
-        starter = Thread(target=self.start_command, daemon=False)
+        starter = Thread(target=self.start_command, daemon=False)# TODO:why that daemon is false> why can't true work?
         starter.start()
         print("Command starter started!")

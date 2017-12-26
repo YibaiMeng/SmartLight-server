@@ -2,23 +2,38 @@
   {
       "cname" : "hello",
       "alias": ["hello","你好","hello_world", "shit"],
-      "invoking_program" : ["python3", "./programmes/hello/hello.py"],
+      "invoking_program" : ["python3", "./programs/hello/hello.py"],
       "version" : "1.0.0",
       "description": "Does nothing but say hello."
   },
   {
       "cname" : "whoami",
       "alias": ["我是谁"],
-      "invoking_program" : ["sh", "./programmes/whoami/main.sh"],
+      "invoking_program" : ["sh", "./programs/whoami/main.sh"],
       "version" : "1.0.0",
       "description": "Does nothing but tells you who you are"
   },
   {
       "cname" : "turn_on_light",
-      "alias": ["开灯", "灯","light"],
-      "invoking_program" : ["python3", "./programmes/turn_on_light/main.py"],
+      "alias": ["开灯", "灯","关灯"],
+      "invoking_program" : ["python3", "./programs/turn_on_light/main.py"],
       "version": "0.1.0",
       "description" : "控制灯的亮灭"
 
+  },
+  {
+      "cname" : "eecs_news",
+      "alias": ["信科新闻", "eecs"],
+      "invoking_program" : ["python3", "./programs/eecs_news/main.py"],
+      "version": "0.1.0",
+      "description" : "最近的信科新闻"
+
+  },
+  {
+      "cname" : "async_demo",
+      "alias": ["非阻塞", "非阻塞展示","async"],
+      "invoking_program" : ["./programs/async_demo/main.sh"],
+      "version": "1.0.0",
+      "description" : "展示非阻塞的输出特性"
   }
 ]
