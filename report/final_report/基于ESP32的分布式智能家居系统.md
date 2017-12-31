@@ -478,4 +478,4 @@ static void WS2812B_setLeds(wsRGB_t* data, unsigned int size, rmt_item32_t* item
 
 解决问题的时候比较着急，所以没有特别的记录用到的参考资料。主要是阅读有关软件以及框架的官方文档，比如Python的Docs（用的太多我都把它作为一个搜索引擎了），ESP32项目的tutorial，样例以及文档。
 
-我们的代码都在github上面。[吴越同学的帐号](www.github.com/wuyuepku)，[孟逸白同学的帐号](www.github.com/YibaiMeng)。欢迎老师前去查看。
+我们的代码都在github上面。[吴越同学的帐号](https://www.github.com/wuyuepku)，[孟逸白同学的帐号](https://www.github.com/YibaiMeng)。欢迎老师前去查看。

@@ -6,3 +6,11 @@ run the `server.py`, and follow the login instructions.
 
 ## How to install programms?
 read the programs.json and see the programms inside the `programmes` folder. They should speak for themselves.
+
+
+
+## Dependencies
+
+`itchat` and `requests`. PLEASE EXPLICTLY USE PYTHON3! Python2 sucks!
+
+Use `pip3` to install these dependencies.

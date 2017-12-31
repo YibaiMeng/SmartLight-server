@@ -14,7 +14,7 @@ chat_instance = itchat.new_instance()
 
 # switch to filehelper! remember!
 
-#these hashes change all the day!
+#these hashes change all the day! beep you!
 current_user = "filehelper"
 my_user_name = "filehelper"
 
@@ -52,6 +52,7 @@ def WeChatShell(msg):
     if msg["Text"] != "芝麻开门" and msg["ToUserName"] == my_user_name:
         print(msg["Text"])
         shell_instance.input_buffer.put(msg["Text"])
+    # 课上演示用，可以把这段删去
     if msg["Text"] == "芝麻开门" and friend_added == False:
         friend_added = True
         current_user = msg["FromUserName"]
@@ -59,6 +60,7 @@ def WeChatShell(msg):
         shell_instance.input_buffer.put("你好！很高兴认识你！我是笨笨的机器人。", block=False)
 
         #print(shell_instance.input_buffer.qsize())
+# dead code! 仍然搞不定自动接收好友
 '''
 @chat_instance.msg_register(FRIENDS)
 def add_friend(msg):
@@ -85,7 +87,8 @@ p.start()
 shell_instance.start()
 
 chat_instance.run()
+# TODO: consider select
 # while true：
 #    select?
 chat_instance.logout()
-# why? ctrl C
+# why? ctrl C and problems? TODO: how to get out elegantly
